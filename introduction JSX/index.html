@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Example with JSX</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script type="text/babel">
+     function formatName(name){
+       return name.firstName +' '+ name.lastName;
+     }
+     const user = {
+       firstName : 'test',
+       lastName : 'user',
+       profile : 'http://placehold.it/120x120&text=image1'
+     };
+     
+     //render element based on the input
+     function getGreetting(user){
+       if(user){
+         return <h1>Hello, {formatName(user)}</h1>
+       }
+       else{
+         return <h1>Hello</h1>
+       }
+     }
+     const element = (
+        <div>
+         <h1>{getGreetting(user)}</h1>
+         {/*setting up the src with jsx*/}
+         <img src={user.profile} />
+        </div>
+      );
+      debugger;
+      ReactDOM.render(element, document.querySelector('#container'));
+    </script>
+
+  </body>
+</html>
