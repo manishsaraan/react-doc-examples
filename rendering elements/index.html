@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Example with JSX</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Date Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script type="text/babel">
+    
+      function tick(){
+        const element = (
+          <div>
+           <h1>Hello</h1>
+           <h2>Time is : {new Date().toLocaleTimeString()}</h2>
+          </div>
+        );    
+         ReactDOM.render(element, document.querySelector('#container'));
+        }
+      setInterval(tick, 1000);
+    </script>
+
+  </body>
+</html>
