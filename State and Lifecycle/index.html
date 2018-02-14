@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>State and Lifecycle</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Date Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script type="text/babel">
+    
+    class Clock extends React.Component {
+        //setting up constructor so that we can declair our state
+        constructor(props){
+            super(props);
+            this.state = { date : new Date() };
+        }
+        //setting up lifecycle hooks
+        //this method will run after component output rendered to the dom
+        componentDidMount(){            
+            this.timerId = setInterval(
+                () => this.tick(),1000
+            );
+        }
+
+        //removing the timer after its rendered.
+        componentWillUnmount(){         
+            
+            clearInterval(this.timerId);
+        }
+        
+        tick(){           
+            //setState can run asynchronous
+            this.setState( (prevState, props) => {
+                date  : new Date()
+            })
+        }
+        render(){
+            return(
+                <div>
+                <h1>Hello World</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+                </div>
+            );
+        }
+    }    
+
+    
+    ReactDOM.render(<Clock/>, document.querySelector('#container'));
+    
+    </script>
+
+  </body>
+</html>
