@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Handling Events</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script type="text/babel">
+    class Toggle extends React.Component {
+      constructor(props){
+        super(props);
+        this.state = {
+          isToggleOn : true,
+          activeButton : 'None'
+        }
+        this.handleClick = this.handleClick.bind(this);
+      }
+      //you need to bind function with this if you want to use as this.handleClick
+      handleClick(activeButton){
+       console.log        
+        this.setState( prevState => ({
+            isToggleOn : !prevState.isToggleOn,
+            activeButton : activeButton
+        }));
+      }
+
+      handleClick2(activeButton){
+        this.setState( prevState => ({
+            isToggleOn : !prevState.isToggleOn,
+            activeButton : activeButton
+        }));
+      }
+      render(){
+        return(
+          <div>
+            <button onClick={this.handleClick.bind(this,'first button')}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+            <button onClick={(e) => this.handleClick2('second button',e)}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>  
+            <span>{this.state.activeButton}</span>        
+          </div>        
+        );
+      }
+    }
+      //passing the initial data in Comment as props
+    ReactDOM.render(<Toggle/>, document.querySelector('#container'));
+    </script>
+
+  </body>
+</html>
