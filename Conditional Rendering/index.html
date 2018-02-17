@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Handling Events</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script type="text/babel">
+    function UserGreeting(props){
+        return <h1>Welcome Back</h1>
+      }
+    function GuestGreeting(props){      
+        return <h1>Please sign up</h1>
+    }
+
+    //rendering components in a new component
+    function Greeting(props){
+      const isLoggedIn = props.isLoggedIn;
+      return isLoggedIn ?  <UserGreeting/> : <GuestGreeting/>;      
+    }
+    
+
+    function LoginButton(props){
+        return (
+            <button onClick={props.onClick}>Login</button>
+        );
+      }
+
+    function LogoutButton(props){
+        return (
+            <button onClick={props.onClick}>Logout</button>
+        );
+    }
+
+
+    class LoginControl extends React.Component {
+      constructor(props){
+        super(props);
+        this.state = { isLoggedIn : false };
+        this.handleLogiButton = this.handleLogiButton.bind(this);
+        this.handleLogoutButton = this.handleLogoutButton.bind(this);
+      }
+      handleLogoutButton(){
+        this.setState({isLoggedIn : false });
+      }
+      handleLogiButton(){
+        this.setState({isLoggedIn : true });
+      }     
+
+      render(){    
+        //rendering components as a variable    
+        const isLoggedInUser = this.state.isLoggedIn;        
+        let button = isLoggedInUser ? <LogoutButton onClick={this.handleLogoutButton} /> : <LoginButton onClick={this.handleLogiButton} />
+       return(
+             <div>{button}</div>
+          );
+      }
+
+    }
+
+    const messages = ['React', 'Re: React', 'Re:Re: React'];
+    //rendering simple with && condition
+    function Mailbox(props){
+      const unreadMsg = props.unreadMsg;
+      return(
+         <div>
+           {unreadMsg.length > 0 && <h2>You have {unreadMsg.length} unread messages.</h2>}
+         </div>
+        );
+    }
+
+    //prevent an Comnpnent returning event if its called
+    function CancelCall(props){
+      if(!props.canceled){
+        return null;
+      }
+      return (<div>Cancel Called</div>);
+    }
+    class Main extends React.Component {
+      render(){
+        return(
+          <div>
+            <Greeting isLoggedIn={false}/>
+            <LoginControl/>
+            <Mailbox unreadMsg={messages}/>
+            <CancelCall canceled={false}/>
+          </div>
+          )
+      }
+      //passing the initial data in Comment as props
+    }
+    ReactDOM.render(<Main/>, document.querySelector('#container'));
+    </script>
+
+  </body>
+</html>
