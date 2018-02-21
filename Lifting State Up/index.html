@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lifting Status UP</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/answers
+      }
+    </style>
+  </head>
+  <script src=""></script>
+  <link rel="stylesheet" href="">
+  <body>
+    <h1>Basic Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script type="text/babel">
+      function toCelsius(fahrenheit) {
+        return (fahrenheit - 32) * 5 / 9;
+      }
+
+      function toFahrenheit(celsius) {
+        return (celsius * 9 / 5) + 32;
+      }
+
+      const scaleNames = {
+        c: 'Celsius',
+        f: 'Fahrenheit'
+      };
+
+      class TemperatureInput extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {
+            temperature: ''
+          }
+          this.handleChange = this.handleChange.bind(this);
+        }
+        handleChange(e){
+          this.setState({temperature : e.target.value});
+        }
+        render(){
+          const temperature = this.state.temperature;
+          const handle = this.props.scale;
+          return(
+            <fieldset>
+              <legend>Enter temperature in {scaleNames[handle]}:</legend>
+              <input type="text" value={temperature} name="" onChange={this.handleChange}/>
+              <BoilingVerdict celsius = {parseFloat(temperature)}/>
+            </fieldset>
+          );
+        }
+      }
+
+      function BoilingVerdict(props){
+       if(props.celsius >= 100){
+         return <p>The Water Would Boil</p>
+       }
+       else{
+         return <p>The Water Would Not Boil</p>
+       }
+      }
+
+      class Calculator extends React.Component{
+        render(){
+          return(
+            <div>
+             <TemperatureInput scale="c" />
+              <TemperatureInput scale="f" />
+            </div>
+          );
+        }
+      }
+      
+      ReactDOM.render(<Calculator/>, document.querySelector('#container'));
+    </script>
+
+  </body>
+</html>
