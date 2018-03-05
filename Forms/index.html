@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Forms</title>
+    <style>
+      body {
+        text-align: center;
+        /*font-size: 33px;*/
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic Example</h1>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script type="text/babel">
+    class NameForm extends React.Component {
+      constructor(props){
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+          input : '',
+          text : '',
+          dropdown : 'grapefruit',
+          isGoing : true
+        }
+      }
+      handleChange(e){
+        const name = e.target.name;
+        const type = e.target.type;
+        let state = this.state;
+        if(type === "checkbox"){
+         state[name] = e.target.checked;
+        }
+        else{
+         state[name] = e.target.value;
+        }
+
+        this.setState({
+          state : state
+        });
+      }
+      handleSubmit(e){
+          console.log(`a name is submitted ${this.state.value}`);
+          e.preventDefault();
+      }
+      render(){
+        return(
+          <form onSubmit={this.handleSubmit}>
+           <label>
+            Name : <input type="text" name="input" value={this.state.input} onChange={this.handleChange} />
+            Text : <textarea name="text" value={this.state.text} onChange={this.handleChange}></textarea>
+            <select name="dropdown" value={this.state.dropdown} onChange={this.handleChange}>
+                <option value="grapefruit">Grapefruit</option>
+                <option value="lime">Lime</option>
+                <option value="coconut">Coconut</option>
+                <option value="mango">Mango</option>
+            </select>
+             <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleChange} />
+        </label>
+            <input type="submit" value="submit" />
+           </label>
+          </form>
+        );
+      }
+    }
+      //passing the initial data in Comment as props
+    ReactDOM.render(<NameForm/>, document.querySelector('#container'));
+    </script>
+
+  </body>
+</html>
